@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/info', function () {
+    phpinfo();
+});
+
+Route::group([], function () {
+
+    // 던파 서버 정보
+    Route::get("servers","DfController@serverInfo");
+
+
+
 });
