@@ -9,15 +9,16 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>songxue77</title>
-    <link rel="stylesheet" href="{{asset(Util::autoVersion('/css/plugins/bxslider/bxslider.css'))}}" />
-    <link rel="stylesheet" href="{{asset(Util::autoVersion('/css/plugins/jquery-ui-1.21.1/jquery-ui.min.css'))}}" />
+    {{--<link rel="stylesheet" href="{{asset('/css/plugins/bxslider/bxslider.css')}}" />--}}
+    {{--<link rel="stylesheet" href="{{ '/css/plugins/jquery-ui-1.21.1/jquery-ui.min.css'))}}" />--}}
     <style>
         .hide {display:none;}
     </style>
-    <script src="{{asset(Util::autoVersion('/js/plugins/jquery-1.12.4.min.js'))}}"></script>
-    <script src="{{asset(Util::autoVersion('/js/plugins/jquery-ui-1.21.1/jquery-ui.min.js'))}}"></script>
-    <script src="{{asset(Util::autoVersion('/js/plugins/bxslider/jquery.bxslider.min.js'))}}"></script>
-    <script src="{{asset(Util::autoVersion('/js/plugins/bxslider/bxslider.js'))}}"></script>
+    {{--<script src="{{ '/js/plugins/jquery-1.12.4.min.js'))}}"></script>
+    <script src="{{ '/js/plugins/jquery-ui-1.21.1/jquery-ui.min.js'))}}"></script>--}}
+    {{--<script src="{{asset('/js/plugins/bxslider/jquery.bxslider.min.js')}}"></script>
+    <script src="{{asset('/js/plugins/bxslider/bxslider.js')}}"></script>--}}
+    <script src="{{asset('/js/vue.js')}}"></script>
 </head>
 <body>
 <div id="wrap">
@@ -51,16 +52,16 @@
 </div>
 
 {{-- scripts --}}
-<script src="{{asset(Util::autoVersion('/js/plugins/printThis/printThis.js'))}}"></script>
-<script src="{{asset(Util::autoVersion('/js/common/ui.js'))}}"></script>
-<script src="{{asset(Util::autoVersion('/js/myclass/pc/functions.js'))}}"></script>
-<script src="{{asset(Util::autoVersion('/js/myclass/pc/components.js'))}}"></script>
-<script src="{{asset(Util::autoVersion('/js/myclass/pc/myclass.js'))}}"></script>
+{{--<script src="{{'/js/plugins/printThis/printThis.js'}}"></script>
+<script src="{{'/js/common/ui.js'}}"></script>
+<script src="{{'/js/myclass/pc/functions.js'}}"></script>
+<script src="{{'/js/myclass/pc/components.js'}}"></script>
+<script src="{{'/js/myclass/pc/myclass.js'}}"></script>--}}
 <!-- daum editor -->
-<link rel="stylesheet" href="/js/plugins/daumeditor/css/editor.css">
+{{--<link rel="stylesheet" href="/js/plugins/daumeditor/css/editor.css">
 <script src="/js/plugins/daumeditor/js/editor_loader.js"></script>
 <script src="/js/plugins/daumeditor/js/editor_creator.js"></script>
-<script src="{{asset(Util::autoVersion('/js/common/daum_editor.js'))}}"></script>
+<script src="{{'/js/common/daum_editor.js'}}"></script>--}}
 @yield('scripts')
 {{-- //scripts --}}
 
