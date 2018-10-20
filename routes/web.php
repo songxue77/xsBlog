@@ -15,6 +15,18 @@ Route::get('/info', function () {
     phpinfo();
 });
 
+Route::get('/test', function () {
+    Route::get("","DfController@index");
+});
+
+Route::group([], function () {
+
+    // Vue 메인
+    Route::get("vue","TestController@index");
+
+
+});
+
 Route::group([], function () {
 
     // 던파 서버 정보
