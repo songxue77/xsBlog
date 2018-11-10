@@ -209,6 +209,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Add Class Aliases...
+         */
+        'Util' => App\Libraries\Util::class,
     ],
 
 ];
