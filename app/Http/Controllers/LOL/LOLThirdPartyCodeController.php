@@ -14,7 +14,7 @@ class LOLThirdPartyCodeController extends Controller
 
     public function getThirdPartyCodeBySummonerId(Request $request)
     {
-        
+
     }
 
 }
