@@ -87,3 +87,21 @@ Route::group([
     });
 
 });
+
+// 좌석 예약 시스템
+Route::group([
+    'namespace' => 'Work',
+    'as' => 'work::'
+], function () {
+
+    Route::group(['prefix' => 'work'], function () {
+
+        // 메인 페이지
+        Route::get('','SeatController@index')->name('index');
+
+        // 등록 & 수정
+        ROute::get('form', 'SeatController@form')->name('form');
+
+    });
+
+});
