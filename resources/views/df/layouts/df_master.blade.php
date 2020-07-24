@@ -19,20 +19,9 @@
     <!--[if lte IE 9]> <script src="{{asset(Util::autoVersion('/js/common/place_holder.js'))}}"></script> <![endif]-->
     <!--[if IE 7]><script src="{{asset(Util::autoVersion('/js/common/json2.js'))}}"></script><![endif]-->
     <script src="{{asset(Util::autoVersion('/js/common/common.js'))}}"></script>
-
-    <script>
-        window.MemberIdx = '{{session("member_idx")}}';
-        @if(env('APP_ENV_CHAR'))
-            window.app_env_char = "{{env('APP_ENV_CHAR')}}";
-        @endif
-    </script>
 </head>
 <body>
 <div id="wrap">
-    {{-- family-site-box --}}
-    {{--@include('layouts.includes._pc_lnb')--}}
-    {{-- family-site-box --}}
-
     {{-- header --}}
     @include('layouts.pc_header')
     {{-- //header --}}
@@ -60,11 +49,7 @@
     {{--@yield('templates')--}}
     {{-- //Templates --}}
 </div>
-@if (!empty(session()->get('errorMsg')))
-    <script>
-        utils.alert("{{session()->get('errorMsg')}}");
-    </script>
-@endif
+
 {{-- scripts --}}
 <script src="{{asset(Util::autoVersion('/js/plugins/printThis/printThis.js'))}}"></script>
 <script src="{{asset(Util::autoVersion('/js/common/ui.js'))}}"></script>
