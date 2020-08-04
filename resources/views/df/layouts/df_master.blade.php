@@ -23,7 +23,7 @@
 <body>
 <div id="wrap">
     {{-- header --}}
-    @include('layouts.pc_header')
+    @include('df.layouts.df_header')
     {{-- //header --}}
 
     {{-- contents --}}
@@ -33,7 +33,7 @@
     {{-- //contents --}}
 
     {{-- footer --}}
-    @include('layouts.pc_footer')
+    @include('df.layouts.df_footer')
     {{-- //footer --}}
 
     {{-- Layers --}}
@@ -44,10 +44,6 @@
     <div class="loading-layer-dimmed"></div>
     <div class="loading-layer" data-count="0"></div>
     {{-- //Loading --}}
-
-    {{-- Templates --}}
-    {{--@yield('templates')--}}
-    {{-- //Templates --}}
 </div>
 
 {{-- scripts --}}
