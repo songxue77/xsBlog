@@ -15,6 +15,8 @@ Route::get('info', function () {
     phpinfo();
 });
 
+Route::get('portfolio', 'PortfolioController@index');
+
 // 던전앤파이터(NEOPLE)
 Route::group([
     'namespace' => 'DF',
