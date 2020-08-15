@@ -2,7 +2,9 @@
 
 namespace App\Libraries;
 
+use App\Exceptions\CustomValidationException;
 use Carbon\Carbon;
+
 
 class Util
 {
@@ -159,6 +161,20 @@ class Util
         return Carbon::parse($stringDate)->addDays($days);
     }
 
+    public static function calculateDate(Carbon $startDate, string $type, int $value)
+    {
+        $type = studly_case($type);
+
+        $ableTypes = ['Year', 'Month', 'Week', 'Day', 'Hour', 'Minute', 'Second'];
+
+        if (in_array($type, $ableTypes)) {
+            $functionName = 'add'.$type;
+            return $startDate->copy()->$functionName($value);
+        } else {
+            return null;
+        }
+    }
+
     public static function mask($fs, $s)
     {
         $string = $fs . $s;
@@ -196,17 +212,6 @@ class Util
         return ($sec / 60);
     }
 
-    public static function checkInfoClose(string $info)
-    {
-        $config = json_decode(request()->cookie('config'));
-        if (!empty($config->is_info_close)) {
-            if (in_array($info, $config->is_info_close)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static function blockTags($txt)
     {
         $returnValue = $txt;
@@ -241,5 +246,121 @@ class Util
         }
 
         return $returnValue;
+    }
+
+    static public function responseResult($code, $message, $description = null) {
+        return [
+            'code' => $code,
+            'message' => $message,
+            'description' => $description
+        ];
+    }
+
+    static public function makeValidationException(string $key, string $message, int $code = null)
+    {
+        $validator = \Validator::make([], []);
+        $validator->errors()->add($key, $message);
+
+        return new CustomValidationException($validator, null, null, $code);
+    }
+
+    static public function arrayKeyToCamelCase($array, $isInnerArray = false)
+    {
+        if (!is_array($array)) {
+            return null;
+        }
+
+        $tempArray = [];
+        foreach ($array as $key => $value) {
+            if ($isInnerArray && is_array($value)) {
+                $value = self::arrayKeyToCamelCase($value, $isInnerArray);
+            }
+
+            $tempArray[camel_case($key)] = $value;
+        }
+
+        return $tempArray;
+    }
+
+    public static function getPageUrl()
+    {
+        $exceptParams = [
+        ];
+
+        $inputs = collect(request()->input())->except($exceptParams)->toArray();
+
+        $inputs = self::convertEncoding($inputs);
+        $queryStr = urldecode(http_build_query($inputs));
+
+        $url = request()->getHost() . request()->getPathInfo();
+
+        if ($queryStr) {
+            $url .= '?'.$queryStr;
+        }
+
+        return $url;
+    }
+
+    public static function convertEncoding($originValue)
+    {
+        if (is_array($originValue)) {
+            $resultValue = [];
+
+            foreach ($originValue as $key => $value) {
+                $resultValue[$key] = self::convertEncoding($value);
+            }
+
+            return $resultValue;
+
+        } else {
+            $changeEncoding = 'UTF-8';
+            $targetEncodingList = [
+                $changeEncoding, 'EUC-KR'
+            ];
+
+            $targetEncoding = mb_detect_encoding($originValue, $targetEncodingList);
+
+            if ($targetEncoding && $targetEncoding != $changeEncoding) {
+                try {
+                    $resultValue = iconv($targetEncoding, $changeEncoding, $originValue);
+                } catch (\Exception $e) {
+                    $resultValue = $originValue;
+                }
+
+            } else {
+                $resultValue = $originValue;
+            }
+
+            return $resultValue;
+        }
+    }
+
+    static public function br2nl(string $str = null)
+    {
+        $str = htmlspecialchars($str);
+        $str = preg_replace("=&lt;br */?&gt;=i", "\n", $str);
+        $str = htmlspecialchars_decode($str);
+        return $str;
+    }
+
+    static public function getRemoteAddr()
+    {
+        return request()->server('XFFCLIENTIP', request()->server('REMOTE_ADDR', ''));
+    }
+
+    static public function replaceConfigParameter(string $str, array $bindings)
+    {
+        $resultStr = $str;
+
+        foreach ($bindings as $key => $value) {
+            if ($str == "{{$key}}") {
+                return $value;
+
+            } else {
+                $resultStr = str_replace("{{$key}}", $value, $str);
+            }
+        }
+
+        return $resultStr;
     }
 }

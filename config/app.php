@@ -150,6 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Ixudra\Curl\CurlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -213,6 +214,7 @@ return [
          * Add Class Aliases...
          */
         'Util' => App\Libraries\Util::class,
+        'Curl' => Ixudra\Curl\Facades\Curl::class
     ],
 
 ];
