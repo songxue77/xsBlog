@@ -2,9 +2,7 @@
 
 namespace App\Libraries;
 
-use App\Exceptions\CustomValidationException;
 use Carbon\Carbon;
-
 
 class Util
 {
@@ -50,31 +48,28 @@ class Util
      */
     public static function autoVersion($path='')
     {
-        if (!empty($path)) {
+        $split = explode("?", $path);
 
-            $split = explode("?", $path);
-
-            if (count($split) > 1) {
-                $source = $split[0];
-                $params = "&". $split[1];
-            } else {
-                $source = $path;
-                $params = '';
-            }
-
-            $basePath = public_path();
-            $fileSrc = $basePath . $source;
-            $pathInfo = pathinfo($fileSrc);
-            $version = "";
-            if (file_exists($fileSrc)) {
-                $version = "?". filemtime($fileSrc);
-            }
-            if (!empty($params)) {
-                return $source . $version . $params;
-            }
-            return $path . $version;
+        if (count($split) > 1) {
+            $source = $split[0];
+            $params = "&". $split[1];
+        } else {
+            $source = $path;
+            $params = '';
         }
 
+        $basePath = public_path();
+        $fileSrc = $basePath . $source;
+        $pathInfo = pathinfo($fileSrc);
+        $version = "";
+        if (file_exists($fileSrc)) {
+            $version = "?". filemtime($fileSrc);
+        }
+        if (!empty($params)) {
+            return $source . $version . $params;
+        }
+
+        return $path . $version;
     }
 
     public static function getProductPattern($routePath)
@@ -254,14 +249,6 @@ class Util
             'message' => $message,
             'description' => $description
         ];
-    }
-
-    static public function makeValidationException(string $key, string $message, int $code = null)
-    {
-        $validator = \Validator::make([], []);
-        $validator->errors()->add($key, $message);
-
-        return new CustomValidationException($validator, null, null, $code);
     }
 
     static public function arrayKeyToCamelCase($array, $isInnerArray = false)

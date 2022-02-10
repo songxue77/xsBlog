@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\DF;
 
-use App\Libraries\Util;
-use Ixudra\Curl\Facades\Curl;
 use Exception;
+use App\Libraries\Util;
+use Illuminate\Support\Facades\Http;
 
-
-class MainService
+class ServerService
 {
     private $apiUrl;
     private $apiKey;
@@ -21,25 +22,20 @@ class MainService
     public function serverList()
     {
         try {
+            $apiResponse = Http::get($this->apiUrl.'/df/servers', [
+                'apikey' => $this->apiKey
+            ]);
 
-            $apiResponse = Curl::to($this->apiUrl.'/df/servers')
-                ->withData(['apikey' => $this->apiKey])
-                ->get();
-
-            $result = json_decode($apiResponse, true);
-
-            if (isset($result['error'])) {
-                throw new Exception('API CALL ERROR');
-            }
+            $header = $apiResponse->headers();
+            $body = $apiResponse->json();
+            dd($body);
 
             $responseResult = Util::responseResult('0000', 'server list');
             $responseResult['data']['serviceList'] = $result['rows'];
-
         } catch (Exception $e) {
             $responseResult = Util::responseResult('9999', $e->getMessage());
         }
 
         return $responseResult;
     }
-
 }

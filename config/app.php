@@ -150,7 +150,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Ixudra\Curl\CurlServiceProvider::class,
 
         /*
          * Application Service Providers...

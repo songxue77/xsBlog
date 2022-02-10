@@ -84,6 +84,7 @@
             <div class="col-md-4">
                 <h2 class="heading">About Me</h2>
             </div>
+            <textarea>{!! $content !!}</textarea>
             <div class="col-md-8">
                 <p>
 {{--                    제가 지금까지 해왔던 웹 서비스 개발은 새로운 사업을 위해 사이트를 런칭하고, 기획팀에서 사이트를 관리하기 위해 관리자페이지를 개발하며,--}}
