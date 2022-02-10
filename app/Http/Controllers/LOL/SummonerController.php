@@ -5,7 +5,7 @@ namespace App\Http\Controllers\LOL;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LOLSummonerController
+class SummonerController
 {
     function __construct()
     {
